@@ -19,11 +19,11 @@ void Orderbook::print_last_transaction() const {
 	Order order = transaction_history.back();
 	std::cout << "Balance change. user_id: " << order.get_user_id() << "\n";
 	if (order.get_side() == SELL) {
-		std::cout << "-" << order.get_amount() * order.get_price() << " UAH\n"
-				  << "+" << order.get_amount() / order.get_price() << " USD\n";
+		std::cout << "-" << order.get_amount() / order.get_price() << " UAH\n"
+				  << "+" << order.get_amount() * order.get_price() << " USD\n";
 	} else {
-		std::cout << "+" << order.get_amount() * order.get_price() << " UAH\n"
-				  << "-" << order.get_amount() / order.get_price() << " USD\n";
+		std::cout << "+" << order.get_amount() / order.get_price() << " UAH\n"
+				  << "-" << order.get_amount() * order.get_price() << " USD\n";
 	}
 }
 
