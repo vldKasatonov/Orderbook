@@ -1,4 +1,5 @@
 #include "Orderbook.h"
+#include <algorithm>
 #include <iostream>
 
 bool Orderbook::SellOrdersComparator::operator()(const Order &a, const Order &b) const {
@@ -11,7 +12,23 @@ bool Orderbook::BuyOrdersComparator::operator()(const Order &a, const Order &b) 
 
 void Orderbook::match_orders() {
 	while (!sell_orders.empty() && !buy_orders.empty()) {
-
+		Order sell_order = sell_orders.top();
+		Order buy_order = buy_orders.top();
+		if (sell_order.get_price() <= buy_order.get_price()) {
+			int match_amount = std::min(sell_order.get_price(),
+										buy_order.get_price());
+			int match_price = sell_order.get_price();
+			transaction_history.emplace_back(sell_order.get_user_id(), match_amount,
+											 match_price, SELL);
+			sell_orders.pop();
+			print_last_transaction();
+			transaction_history.emplace_back(buy_order.get_user_id(), match_amount,
+											 match_price, BUY);
+			buy_orders.pop();
+			print_last_transaction();
+		} else {
+			return;
+		}
 	}
 }
 
