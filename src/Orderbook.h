@@ -18,10 +18,11 @@ private:
 
 	std::priority_queue<Order, std::vector<Order>, SellOrdersComparator> sell_orders;
 	std::priority_queue<Order, std::vector<Order>, BuyOrdersComparator> buy_orders;
-	std::vector<Order> order_history;
+	std::vector<Order> transaction_history;
 
 public:
 	void match_orders();
+	void print_transaction() const;
 	void add_order(const Order &order);
 };
 
