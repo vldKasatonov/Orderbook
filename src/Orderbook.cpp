@@ -17,14 +17,11 @@ void Orderbook::match_orders() {
 
 void Orderbook::print_last_transaction() const {
 	Order order = transaction_history.back();
-	std::cout << "Balance change. user_id: " << order.get_user_id() << "\n";
-	if (order.get_side() == SELL) {
-		std::cout << "-" << order.get_amount() * order.get_price() << " UAH\n"
-				  << "+" << order.get_amount() / order.get_price() << " USD\n";
-	} else {
-		std::cout << "+" << order.get_amount() * order.get_price() << " UAH\n"
-				  << "-" << order.get_amount() / order.get_price() << " USD\n";
-	}
+	std::cout << "Balance change. user_id: " << order.get_user_id() << "\n"
+			  << (order.get_side() == SELL ? "-" : "+")
+			  << order.get_amount() * order.get_price() << " UAH\n"
+			  << (order.get_side() == SELL ? "+" : "-")
+			  << order.get_amount() / order.get_price() << " USD\n";
 }
 
 void Orderbook::add_order(const Order &order) {
