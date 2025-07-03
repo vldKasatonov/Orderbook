@@ -15,8 +15,8 @@ void Orderbook::match_orders() {
 		Order sell_order = sell_orders.top();
 		Order buy_order = buy_orders.top();
 		if (sell_order.get_price() <= buy_order.get_price()) {
-			int match_amount = std::min(sell_order.get_price(),
-										buy_order.get_price());
+			int match_amount = std::min(sell_order.get_amount(),
+										buy_order.get_amount());
 			int match_price = sell_order.get_price();
 			transaction_history.emplace_back(sell_order.get_user_id(), match_amount,
 											 match_price, SELL);
@@ -36,10 +36,10 @@ void Orderbook::print_last_transaction() const {
 	Order order = transaction_history.back();
 	std::cout << "Balance change. user_id: " << order.get_user_id() << "\n";
 	if (order.get_side() == SELL) {
-		std::cout << "-" << order.get_amount() / order.get_price() << " UAH\n"
+		std::cout << "-" << order.get_amount() << " UAH\n"
 				  << "+" << order.get_amount() * order.get_price() << " USD\n";
 	} else {
-		std::cout << "+" << order.get_amount() / order.get_price() << " UAH\n"
+		std::cout << "+" << order.get_amount() << " UAH\n"
 				  << "-" << order.get_amount() * order.get_price() << " USD\n";
 	}
 }
