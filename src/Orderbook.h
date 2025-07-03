@@ -5,6 +5,11 @@
 #include <queue>
 #include <vector>
 
+enum Side {
+	SELL = 1,
+	BUY = 0
+};
+
 class Orderbook {
 private:
 	class SellOrdersComparator {
@@ -22,7 +27,7 @@ private:
 
 public:
 	void match_orders();
-	void print_transaction() const;
+	void print_last_transaction() const;
 	void add_order(const Order &order);
 };
 
